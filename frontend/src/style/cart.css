@@ -1,0 +1,13 @@
+.placeOrderButton {
+    margin-top: 15px;
+    background-image: linear-gradient(to left, #0c0f82, #ff1493, #f97d01);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: max-content;
+    margin-right: 0;
+    margin-left: auto;
+}

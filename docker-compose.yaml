@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  my-wedding-moments-be:
+    container_name: my-wedding-moments-be
+    restart: always
+    image: anhminhbo/my-wedding-moments-be:0
+    # image: test-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - FRONTEND_URL=http://my-wedding-moments-fe
+
+  my-wedding-moments-fe:
+    container_name: my-wedding-moments-fe
+    restart: always
+    image: anhminhbo/my-wedding-moments-fe:0
+    # image: test-react
+    ports:
+      - "3000:80"

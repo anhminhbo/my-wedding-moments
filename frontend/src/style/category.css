@@ -1,0 +1,38 @@
+.homepage-container {
+    max-width: 1200px;
+    margin: 20px auto; /* Adjust the margin values as needed */
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 40px 10vw; 
+    align-items: center;
+    justify-items: center;
+}
+
+.card-display{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border: rgba(128, 128, 128, 0.5) solid 1px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 8px 0 12px rgba(0, 0, 0, 0.1), -8px 0 12px rgba(0, 0, 0, 0.1), 
+                0 6px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 18rem;
+    transition: all .3s ease;
+}
+
+.card-display:hover{
+    scale: 1.1;
+}
+
+.category-img{
+    max-width: 100%;
+    height: auto;
+}
+
+.card-title{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0c0f82;
+}

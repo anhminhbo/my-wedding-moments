@@ -1,0 +1,58 @@
+.displayContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: normal;
+    width: 80%;
+    margin: 35px auto 0;
+}
+
+.displayTitle{
+    width: max-content;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-weight: 700;
+    text-align: left;
+    font-size: 40px;
+    line-height: 60px;
+    background-image: linear-gradient(to left, #0c0f82, #ff1493, #f97d01);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    mix-blend-mode: multiply;
+}
+
+.displayTable{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 45px auto;
+    line-height: 20px;
+}
+
+.displayTable th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.displayTable th {
+    background-color: #eb9e56;
+    color: white;
+    text-align: center;
+}
+
+.delete-button{
+    text-align: center;
+    line-height: 20px;
+}
+
+.delete-button svg{
+    cursor: pointer;
+    color: #eb9e56;
+    transition: all .2s ease;
+}
+
+.delete-button svg:hover{
+    color: #0c0f82;
+}

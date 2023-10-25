@@ -1,0 +1,36 @@
+.search {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search input {
+    padding: 0 10px;
+    outline: none;
+    border: 1px gray solid;
+    border-right: none;
+}
+
+.search button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px gray solid;
+    border-radius: 0 5px 5px 0;
+    outline: none;
+}
+
+.search button svg {
+    width: max-content;
+    margin: auto;
+    cursor: pointer;
+}
+
+.search select {
+    border-right: none;
+}
+
+.search select:first-child {
+    border-radius: 5px 0 0 5px;
+}

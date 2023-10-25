@@ -1,0 +1,11 @@
+# App dependencies
+node_modules
+package-lock.json
+
+# Infra dependencies
+serviceaccount.json
+**terraform.tfstate**
+.terraform
+**.lock**
+
+configmap.yaml

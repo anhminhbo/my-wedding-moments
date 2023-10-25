@@ -1,0 +1,77 @@
+header {
+    background-color: rgba(196, 180, 180, 0.22);
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 11%;
+    z-index: 9;
+}
+
+header img {
+    width: 230px;
+    transform: translateY(5px);
+}
+
+header nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+}
+
+header nav li{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+header nav li:hover{
+    color: #f97d01;
+}
+
+header nav li {
+    list-style-type: none;
+}
+
+.right{
+    display: flex;
+    width: 5%;
+    justify-content: end;
+    align-items: center;
+}
+
+header .bi-cart{
+    margin-right: 10px;
+}
+
+header svg {
+    cursor: pointer;
+}
+
+header #toggleBox{
+    position: absolute;
+    right: 0;
+    background-color: #f2efef;
+    transform: translate(-155px, 80px);
+    border: 1px black solid;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    transition: all .2s ease-in-out;
+}
+
+header #toggleBox div{
+    padding: 15px;
+    text-align: left;
+}
+
+header #toggleBox .username{
+    display: inline;
+    padding: 0;
+    color: #f97d01;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+header #toggleBox .logOutBtn{
+    cursor: pointer;
+}
