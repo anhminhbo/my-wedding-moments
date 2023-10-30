@@ -109,8 +109,8 @@ app.use(globalErrorHandler);
 // Connect to Mongoose
 require("./config/init.mongo");
 
-// Connect to Redis
-require("./config/init.redis");
+// // Connect to Redis
+// require("./config/init.redis");
 
 const port = PORT || 8080;
 
