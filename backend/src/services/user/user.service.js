@@ -1,5 +1,4 @@
 const { UserModel } = require("../../models");
-const { sqlHelper } = require("../../utils");
 const crypto = require("crypto");
 
 const createUser = async (username, password) => {
@@ -23,11 +22,6 @@ const login = async (username, password) => {
   const hashedPassword = hash.digest("hex");
 
   const params = [username, hashedPassword];
-
-  const results = await sqlHelper.arraySqlQuery(
-    `SELECT * from USERS where username=? and password=?`,
-    params
-  );
 
   return results;
 };

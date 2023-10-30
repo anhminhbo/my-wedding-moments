@@ -9,3 +9,6 @@ serviceaccount.json
 **.lock**
 
 configmap.yaml
+
+# env
+**.env**

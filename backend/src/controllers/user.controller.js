@@ -1,4 +1,4 @@
-const { ResponseService, UserService, RedisService } = require("../services");
+const { ResponseService, UserService } = require("../services");
 const Error = require("../config/constant/Error");
 const { catchAsync } = require("../utils");
 

@@ -1,5 +1,4 @@
 const { CategoryModel } = require("../../models");
-const { sqlHelper } = require("../../utils");
 
 // Recursive function to populate all levels of parentCategory
 async function populateParentCategories(category) {
@@ -32,10 +31,6 @@ const getAllCategories = async () => {
 
 const updateCategory = async (name, parentCategory, newName) => {
   const params = [name];
-  const results = await sqlHelper.arraySqlQuery(
-    `CALL CheckIfEligibleToDeleteCategory(?)`,
-    params
-  );
 
   if (results[0][0].eligible == 1) {
     CategoryModel.findOneAndUpdate(
@@ -49,8 +44,7 @@ const updateCategory = async (name, parentCategory, newName) => {
         console.log("Updated document:", doc);
       }
     );
-  }
-  else {
+  } else {
     return "Unable to delete or update this category";
   }
 
@@ -59,16 +53,11 @@ const updateCategory = async (name, parentCategory, newName) => {
 
 const deleteCategory = async (name) => {
   const params = [name];
-  const results = await sqlHelper.arraySqlQuery(
-    `CALL CheckIfEligibleToDeleteCategory(?)`,
-    params
-  );
-  
+
   if (results[0][0].eligible == 1) {
     const result = await CategoryModel.deleteOne({ name: name });
     return result;
-  }
-  else {
+  } else {
     return "Unable to delete or update this category";
   }
 

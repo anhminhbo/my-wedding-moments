@@ -4,18 +4,8 @@
 
 const UserController = require("./user.controller");
 const AuthController = require("./auth.controller");
-const OrderController = require("./order.controller");
-const WarehouseController = require("./warehouse.controller");
-const ProductController = require("./product.controller");
-const CategoryController = require("./category.controller");
-const InventoryController = require("./inventory.controller")
 
 module.exports = {
   UserController,
   AuthController,
-  OrderController,
-  WarehouseController,
-  ProductController,
-  CategoryController,
-  InventoryController
 };

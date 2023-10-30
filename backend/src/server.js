@@ -33,7 +33,7 @@ app.use(
 
 // Import 3rd party libraries
 const cors = require("cors");
-const rateLimit = require("express-rate-limit");
+// const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
@@ -43,15 +43,7 @@ const { PORT, FRONTEND_URL } = require("./config/constant/Env");
 const { ResponseService } = require("./services");
 const Error = require("./config/constant/Error");
 const { globalErrorHandler } = require("./middlewares");
-const {
-  UserRouter,
-  AuthRouter,
-  OrderRouter,
-  WarehouseRouter,
-  ProductRouter,
-  CategoryRouter,
-  InventoryRouter,
-} = require("./routers");
+const { UserRouter, AuthRouter } = require("./routers");
 
 // set security http headers
 app.use(helmet());
@@ -63,18 +55,18 @@ app.use(
   })
 );
 
-// set limit request from same API in timePeroid from same ip
-// set this limit to API calls only
-const limiter = rateLimit({
-  max: 120, // max number of limits
-  windowMs: 5 * 60 * 1000, // Banned 5 minutes
-  message: " Too many req from this IP , please Try  again in 5 minutes!",
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  skipSuccessfulRequests: true, // skip if the request is succesful
-});
+// // set limit request from same API in timePeroid from same ip
+// // set this limit to API calls only
+// const limiter = rateLimit({
+//   max: 120, // max number of limits
+//   windowMs: 5 * 60 * 1000, // Banned 5 minutes
+//   message: " Too many req from this IP , please Try  again in 5 minutes!",
+//   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+//   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+//   skipSuccessfulRequests: true, // skip if the request is succesful
+// });
 
-app.use("/api", limiter);
+// app.use("/api", limiter);
 
 //  Body Parser  => reading data from body into req.body protect from scraping etc
 // parses incoming requests with JSON payloads
@@ -99,11 +91,6 @@ app.use("/api/test", (req, res) => res.json({ data: "PEACE!!!!" }));
 // Use specific Router to handle each end point
 app.use("/api/user", UserRouter);
 app.use("/api/auth", AuthRouter);
-app.use("/api/order", OrderRouter);
-app.use("/api/warehouse", WarehouseRouter);
-app.use("/api/product", ProductRouter);
-app.use("/api/category", CategoryRouter);
-app.use("/api/inventory", InventoryRouter);
 
 // handling all (get,post,update,delete.....) unhandled routes
 app.use("*", (req, res, next) => {
@@ -122,8 +109,8 @@ app.use(globalErrorHandler);
 // Connect to Mongoose
 require("./config/init.mongo");
 
-// Connect to Mysql
-require("./config/init.mysql.js");
+// Connect to Redis
+require("./config/init.redis");
 
 const port = PORT || 8080;
 
