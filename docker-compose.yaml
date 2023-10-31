@@ -1,29 +1,29 @@
 version: "3.8"
 services:
-  # my-wedding-moments-be:
-  #   container_name: my-wedding-moments-be
-  #   restart: always
-  #   image: anhminhbo/my-wedding-moments-be:0
-  #   # image: test-backend
-  #   ports:
-  #     - "8080:8080"
-  #   environment:
-  #     - NODE_ENV=production
-  #     - PORT=8080
-  #     - FRONTEND_URL=http://my-wedding-moments-fe
-
-  # my-wedding-moments-fe:
-  #   container_name: my-wedding-moments-fe
-  #   restart: always
-  #   image: anhminhbo/my-wedding-moments-fe:0
-  #   # image: test-react
-  #   ports:
-  #     - "3000:80"
-    
-  redis-server:
-    container_name: bits-redis
+  my-wedding-moments-be:
+    container_name: my-wedding-moments-be
     restart: always
-    image: redis:6.2-alpine
+    image: anhminhbo/my-wedding-moments-be:1
+    # image: test-backend
     ports:
-      - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - FRONTEND_URL=http://localhost:3000
+
+  my-wedding-moments-fe:
+    container_name: my-wedding-moments-fe
+    restart: always
+    image: anhminhbo/my-wedding-moments-fe:1
+    # image: test-react
+    ports:
+      - "3000:80"
+    
+  # redis-server:
+  #   container_name: bits-redis
+  #   restart: always
+  #   image: redis:6.2-alpine
+  #   ports:
+  #     - '6379:6379'
+  #   command: redis-server --save 20 1 --loglevel warning
