@@ -2,14 +2,16 @@
 PROJECT_ID=$1
 CLUSTER_NAME=$2
 
+FE_IMAGE_NAME=$3
+BE_IMAGE_NAME=$4
+
 ROOT_DIR=$(pwd)
 TPL_DIR=$ROOT_DIR/infra/k8s/templates
 DEPLOY_DIR=$ROOT_DIR/infra/k8s
 
+FE_TAG=$(curl -s -S https://registry.hub.docker.com/v2/repositories/$FE_IMAGE_NAME/tags | jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)
 
-FE_TAG=$(curl -s -S https://registry.hub.docker.com/v2/repositories/anhminhbo/my-wedding-moments-fe/tags | jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)
-
-BE_TAG=$(curl -s -S https://registry.hub.docker.com/v2/repositories/anhminhbo/my-wedding-moments-be/tags | jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)
+BE_TAG=$(curl -s -S https://registry.hub.docker.com/v2/repositories/$BE_IMAGE_NAME/tags | jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)
 
 # Create backend and frontend manifest
 cat $TPL_DIR/backend.yaml.tpl | \

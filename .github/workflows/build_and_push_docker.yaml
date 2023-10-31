@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is triggering Build and Push Docker images 🚀
 on:
   push:
     branches:
-      - release
+      - main
 concurrency: build_and_push_docker
 jobs:
   build-anh-push-docker:
