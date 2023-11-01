@@ -52,4 +52,4 @@ jobs:
       - name: Run Bash Script to Deploy
         run: |
           chmod +x deploy.sh
-          bash -x deploy.sh ${{ secrets.GCP_PROJECT_ID }} ${{ secrets.GCP_GKE_CLUSTER_NAME }} ${{ secrets.FE_DOCKERHUB_REPO }} ${{ secrets.BE_DOCKERHUB_REPO }}
+          bash deploy.sh ${{ secrets.GCP_PROJECT_ID }} ${{ secrets.GCP_GKE_CLUSTER_NAME }} ${{ secrets.FE_DOCKERHUB_REPO }} ${{ secrets.BE_DOCKERHUB_REPO }}
