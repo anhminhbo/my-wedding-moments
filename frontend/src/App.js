@@ -16,7 +16,7 @@ function App() {
 
         const data = await response.json(); // Parse response JSON data
         setBackendData(data); // Set backend response data
-        setBackendStatus("Connected to Backend successfully.");
+        setBackendStatus("Connected to Backend successfully!");
       } catch (error) {
         setBackendStatus("Error: " + error.message);
       }
