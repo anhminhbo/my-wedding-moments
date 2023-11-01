@@ -9,6 +9,8 @@ ROOT_DIR=$(pwd)
 TPL_DIR=$ROOT_DIR/infra/k8s/templates
 DEPLOY_DIR=$ROOT_DIR/infra/k8s
 
+echo $FE_IMAGE_NAME $BE_IMAGE_NAME
+
 FE_TAG="$(curl -s -S "https://registry.hub.docker.com/v2/repositories/$FE_IMAGE_NAME/tags" | jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)"
 
 BE_TAG="$(curl -s -S "https://registry.hub.docker.com/v2/repositories/$BE_IMAGE_NAME/tags" | jq '."results"[]["name"]' | sed -n 1p | cut -d'"' -f2)"
