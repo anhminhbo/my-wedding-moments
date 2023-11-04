@@ -26,7 +26,7 @@ serviceName=$1
 
 if [[ "$serviceName" == "backend" ]]; then
 
-    cd $ROOT_DIR/backend && npm run server
+    cd $ROOT_DIR/backend && npm run start
     exit 0
 
 fi
