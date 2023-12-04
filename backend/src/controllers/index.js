@@ -4,8 +4,10 @@
 
 const UserController = require("./user.controller");
 const AuthController = require("./auth.controller");
+const PhotoController = require("./photo.controller");
 
 module.exports = {
   UserController,
   AuthController,
+  PhotoController
 };

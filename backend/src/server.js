@@ -43,7 +43,7 @@ const { PORT, FRONTEND_URL } = require("./config/constant/Env");
 const { ResponseService } = require("./services");
 const Error = require("./config/constant/Error");
 const { globalErrorHandler } = require("./middlewares");
-const { UserRouter, AuthRouter } = require("./routers");
+const { UserRouter, AuthRouter, PhotoRouter } = require("./routers");
 
 // set security http headers
 app.use(helmet());
@@ -71,7 +71,7 @@ app.use(
 //  Body Parser  => reading data from body into req.body protect from scraping etc
 // parses incoming requests with JSON payloads
 // content-type: application/json
-app.use(express.json({ limit: "10kb" }));
+// app.use(express.json({ limit: "10kb" }));
 
 // Use to parse www-url-encoded
 app.use(express.urlencoded({ extended: false }));
@@ -91,6 +91,7 @@ app.use("/api/test", (req, res) => res.json({ data: "BugFixSquad 4ever!!!!" }));
 // Use specific Router to handle each end point
 app.use("/api/user", UserRouter);
 app.use("/api/auth", AuthRouter);
+app.use("/api/photo", PhotoRouter);
 
 // handling all (get,post,update,delete.....) unhandled routes
 app.use("*", (req, res, next) => {

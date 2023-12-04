@@ -11,4 +11,9 @@ module.exports = {
 
   // Frontend URL
   FRONTEND_URL: process.env.FRONTEND_URL,
+
+  // Google Drive folders
+  GROOM_FOLDER: process.env.GROOM_FOLDER,
+  BRIDE_FOLDER: process.env.BRIDE_FOLDER,
+  GENERAL_FOLDER: process.env.GENERAL_FOLDER,
 };
