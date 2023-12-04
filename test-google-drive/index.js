@@ -51,7 +51,7 @@ const uploadFile = async (fileObject) => {
     },
     requestBody: {
       name: fileObject.originalname,
-      parents: ["1SA0BgHIE_CwW8XT2MO5wVbIzJl4-20-g"],
+      parents: ["1SA0BgHIE_CwW8XT2MO5wVbIzJl4-20-g"], // get the url path ending of the google drive
     },
     fields: "id,name",
   });

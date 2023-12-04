@@ -28,7 +28,7 @@ My Wedding Moments
 
 # UI:
 
-- ![Sample UI](https://github.com/anhminhbo/my-wedding-moments/blob/main/SampleUI.png)
+- ![Sample UI](https://github.com/anhminhbo/my-wedding-moments/blob/release/SampleUI.png)
 
 # Constaints:
 
