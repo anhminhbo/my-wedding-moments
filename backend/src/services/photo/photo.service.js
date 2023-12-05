@@ -21,7 +21,7 @@ const uploadPhotos = async (files, category) => {
   for (let f = 0; f < files.length; f += 1) {
     const result = await uploadFile(files[f], gDriveFolderParent);
 
-    if (!result) {
+    if (!result || !Object.keys(result).length) {
       throw ResponseService.newError(
         Error.UnableToUploadPhoto.errCode,
         Error.UnableToUploadPhoto.errMessage

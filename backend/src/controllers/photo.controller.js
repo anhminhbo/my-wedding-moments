@@ -11,7 +11,7 @@ const getAllPhotos = catchAsync(async (req, res) => {
 
 const uploadPhotos = catchAsync(async (req, res) => {
   const { files } = req;
-  if (!files) {
+  if (!files || !Object.keys(files).length) {
     throw ResponseService.newError(
       Error.MissingPhotos.errCode,
       Error.MissingPhotos.errMessage
