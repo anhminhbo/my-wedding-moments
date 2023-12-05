@@ -1,74 +1,56 @@
-const PhotoService = require("../photo/photo.service");
-const ResponseService = require("../response/response.service");
-const Error = require("../../config/constant/Error");
 const { PhotoModel } = require("../../models");
+const { uploadFile } = require("./utilities");
+const Error = require("../../config/constant/Error");
+const ResponseService = require("../response/response.service");
 
-const register = async (username, password) => {
-  // generate salt to hash password
+const {
+  GROOM_FOLDER,
+  BRIDE_FOLDER,
+  GENERAL_FOLDER,
+} = require("../../config/constant/Env");
 
-  const photo = await PhotoService.createPhoto(username, hashedPassword);
+const uploadPhotos = async (files, category) => {
+  const gDriveFolderParent =
+    category === "bride"
+      ? BRIDE_FOLDER
+      : category === "groom"
+      ? GROOM_FOLDER
+      : GENERAL_FOLDER;
 
-  return;
+  // Upload each photo
+  for (let f = 0; f < files.length; f += 1) {
+    const result = await uploadFile(files[f], gDriveFolderParent);
+
+    if (!result) {
+      throw ResponseService.newError(
+        Error.UnableToUploadPhoto.errCode,
+        Error.UnableToUploadPhoto.errMessage
+      );
+    }
+
+    // **Calculate index**
+    // Calculate the total count of documents in PhotoModel
+    const totalCount = await PhotoModel.countDocuments();
+
+    // Calculate index based on total count
+    const index = totalCount + 1;
+
+    // **Calculate page**
+    const page = Math.ceil(index / 10) < 1 ? 1 : Math.ceil(index / 10);
+
+    // Save photo document
+    const photoToBeCreate = new PhotoModel({
+      gDriveId: result.id,
+      name: result.name,
+      gDriveUrl: `https://drive.google.com/uc?export=view&id=${result.id}`,
+      index,
+      page,
+      category,
+    });
+    await photoToBeCreate.save();
+  }
+
+  return true;
 };
 
-const login = async (username, password) => {
-  const photo = await PhotoService.getPhotoByPhotoname(username);
-  if (!photo) {
-    throw ResponseService.newError(
-      Error.PhotoNotFound.errCode,
-      Error.PhotoNotFound.errMessage
-    );
-  }
-
-  // check photo password with hashed password stored in the database
-
-  if (!validPassword) {
-    throw ResponseService.newError(
-      Error.PasswordInvalid.errCode,
-      Error.PasswordInvalid.errMessage
-    );
-  }
-
-  return photo;
-};
-
-const changePassword = async (username, oldPassword, newPassword) => {
-  const photo = await PhotoService.getPhotoByPhotoname(username);
-  if (!photo) {
-    throw ResponseService.newError(
-      Error.PhotoNotFound.errCode,
-      Error.PhotoNotFound.errMessage
-    );
-  }
-
-  // check photo password with hashed password stored in the database
-
-  // check new password with hashed password stored in the database
-
-  if (!validPassword) {
-    throw ResponseService.newError(
-      Error.PasswordInvalid.errCode,
-      Error.PasswordInvalid.errMessage
-    );
-  }
-
-  if (validNewPassword) {
-    throw ResponseService.newError(
-      Error.NewPasswordInvalid.errCode,
-      Error.NewPasswordInvalid.errMessage
-    );
-  }
-
-  // Filter username to update password
-  // generate salt to hash password
-
-  const filter = { username };
-  const update = { password: hashedNewPassword };
-
-  await PhotoModel.findOneAndUpdate(filter, update, {
-    new: true,
-  });
-
-  return;
-};
-module.exports = { register, login, changePassword };
+module.exports = { uploadPhotos };

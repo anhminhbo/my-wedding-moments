@@ -107,6 +107,15 @@ const Error = {
     errMessage: "Unable to delete or update this category",
   },
 
+  UnableToUploadPhoto: {
+    errCode: 124,
+    errMessage: "Unable to upload photo, please try again",
+  },
+  MissingPhotos: {
+    errCode: 125,
+    errMessage: "Your photos are missing, please try again",
+  },
+
   // 200++ Error from Db
   CastError: {
     errCode: 201,

@@ -4,10 +4,12 @@ const ResponseService = require("./response/response.service");
 const UserService = require("./user/user.service");
 const AuthService = require("./auth/auth.service");
 const CategoryService = require("./category/category.service");
+const PhotoService = require("./photo/photo.service");
 
 module.exports = {
   ResponseService,
   UserService,
   AuthService,
   CategoryService,
+  PhotoService,
 };
