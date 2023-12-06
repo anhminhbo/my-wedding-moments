@@ -44,7 +44,7 @@ const uploadPhotos = async (files, category) => {
 
     // Save photo document
     const photoToBeCreate = new PhotoModel({
-      gDriveIds: result.id,
+      gDriveId: result.id,
       name: result.name,
       gDriveUrl: `https://drive.google.com/uc?export=view&id=${result.id}`,
       index,
