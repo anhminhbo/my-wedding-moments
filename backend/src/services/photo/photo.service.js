@@ -1,5 +1,5 @@
 const { PhotoModel } = require("../../models");
-const { uploadFile, deleteFile } = require("./utilities");
+const { uploadFile, deleteFiles } = require("./utilities");
 const Error = require("../../config/constant/Error");
 const { PHOTOS_PER_PAGE } = require("../../config/constant/Env");
 const ResponseService = require("../response/response.service");
@@ -44,7 +44,7 @@ const uploadPhotos = async (files, category) => {
 
     // Save photo document
     const photoToBeCreate = new PhotoModel({
-      gDriveId: result.id,
+      gDriveIds: result.id,
       name: result.name,
       gDriveUrl: `https://drive.google.com/uc?export=view&id=${result.id}`,
       index,
@@ -89,25 +89,31 @@ const getPhotosByPage = async (page) => {
   return photos;
 };
 
-const deletePhoto = async (gDriveId) => {
-  // Find and delete the photo by gDriveId in Mongo
-  const deletedPhoto = await PhotoModel.findOneAndDelete({ gDriveId });
-  if (!deletedPhoto || !Object.keys(deletedPhoto).length) {
-    throw ResponseService.newError(
-      Error.NoPhotosFound.errCode,
-      Error.NoPhotosFound.errMessage
-    );
-  }
+const deletePhotos = async (gDriveIds) => {
   // Delete in google drive
-  const result = await deleteFile(gDriveId);
-  if (!result) {
+  try {
+    await deleteFiles(gDriveIds);
+  } catch (err) {
+    console.log("Can not delete file on Google Drive err:" + err);
     throw ResponseService.newError(
       Error.DeletePhotoOnDriveFailed.errCode,
       Error.DeletePhotoOnDriveFailed.errMessage
     );
   }
 
+  // Find and delete the photos by gDriveIds in Mongo
+  const deletedPhotos = await PhotoModel.deleteMany({
+    gDriveId: { $in: gDriveIds },
+  });
+
+  if (deletedPhotos.deletedCount === 0) {
+    throw ResponseService.newError(
+      Error.NoPhotosFound.errCode,
+      Error.NoPhotosFound.errMessage
+    );
+  }
+
   return;
 };
 
-module.exports = { uploadPhotos, getAllPhotos, getPhotosByPage, deletePhoto };
+module.exports = { uploadPhotos, getAllPhotos, getPhotosByPage, deletePhotos };

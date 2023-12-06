@@ -32,7 +32,7 @@ app.post("/upload", upload.any(), async (req, res) => {
     const { body, files } = req;
 
     for (let f = 0; f < files.length; f += 1) {
-      await uploadFile(files[f]);
+      await uploadFiles(files[f]);
     }
 
     res.status(200).send("Form Submitted");
@@ -41,7 +41,7 @@ app.post("/upload", upload.any(), async (req, res) => {
   }
 });
 
-const uploadFile = async (fileObject) => {
+const uploadFiles = async (fileObject) => {
   const bufferStream = new stream.PassThrough();
   bufferStream.end(fileObject.buffer);
   const { data } = await google.drive({ version: "v3", auth }).files.create({

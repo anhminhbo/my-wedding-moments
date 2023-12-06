@@ -71,7 +71,7 @@ app.use(
 //  Body Parser  => reading data from body into req.body protect from scraping etc
 // parses incoming requests with JSON payloads
 // content-type: application/json
-// app.use(express.json({ limit: "10kb" }));
+app.use(express.json());
 
 // Use to parse www-url-encoded
 app.use(express.urlencoded({ extended: false }));

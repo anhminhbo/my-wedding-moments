@@ -43,15 +43,15 @@ const editPhoto = catchAsync(async (req, res) => {
   res.status(200).json(ResponseService.newSucess(newPhoto));
 });
 
-const deletePhoto = catchAsync(async (req, res) => {
-  const { gDriveId } = req.params;
-  if (!gDriveId) {
+const deletePhotos = catchAsync(async (req, res) => {
+  const { gDriveIds } = req.body;
+  if (!gDriveIds || !Array.isArray(gDriveIds) || gDriveIds.length === 0) {
     throw ResponseService.newError(
       Error.MissingPhotosGdriveId.errCode,
       Error.MissingPhotosGdriveId.errMessage
     );
   }
-  await PhotoService.deletePhoto(gDriveId);
+  await PhotoService.deletePhotos(gDriveIds);
 
   res.status(200).json(ResponseService.newSucess());
 });
@@ -60,6 +60,6 @@ module.exports = {
   getAllPhotos,
   uploadPhotos,
   editPhoto,
-  deletePhoto,
+  deletePhotos,
   getPhotosByPage,
 };

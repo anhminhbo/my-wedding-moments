@@ -30,17 +30,21 @@ const uploadFile = async (fileObject, gDriveFolderParent) => {
   return data;
 };
 
-const deleteFile = async (gDriveId) => {
+const deleteFiles = async (gDriveIds) => {
   const drive = google.drive({ version: "v3", auth });
 
-  // Delete the file by ID
-  const result = await drive.files.delete({
-    fileId: gDriveId,
+  // Use Promise.all to delete multiple files concurrently
+  const deletePromises = gDriveIds.map(async (gDriveId) => {
+    await drive.files.delete({
+      fileId: gDriveId,
+    });
+
+    console.log(`Deleted photo with gDriveId: ${gDriveId}`);
   });
 
-  console.log(`Deleted photo with gDriveId: ${gDriveId}`);
+  await Promise.all(deletePromises);
 
-  return result;
+  return;
 };
 
-module.exports = { uploadFile, deleteFile };
+module.exports = { uploadFile, deleteFiles };

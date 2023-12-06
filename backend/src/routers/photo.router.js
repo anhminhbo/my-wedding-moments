@@ -10,6 +10,6 @@ router.route("/getAllPhotos").get(PhotoController.getAllPhotos);
 router.route("/getPhotosByPage").get(PhotoController.getPhotosByPage);
 
 router.route("/editPhoto").put(PhotoController.editPhoto);
-router.route("/deletePhoto/:gDriveId").delete(PhotoController.deletePhoto);
+router.route("/deletePhotos").delete(PhotoController.deletePhotos);
 
 module.exports = router;
