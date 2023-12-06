@@ -16,4 +16,7 @@ module.exports = {
   GROOM_FOLDER: process.env.GROOM_FOLDER,
   BRIDE_FOLDER: process.env.BRIDE_FOLDER,
   GENERAL_FOLDER: process.env.GENERAL_FOLDER,
+
+  // Photos config
+  PHOTOS_PER_PAGE: process.env.PHOTOS_PER_PAGE,
 };

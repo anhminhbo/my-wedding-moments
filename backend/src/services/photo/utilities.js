@@ -30,4 +30,17 @@ const uploadFile = async (fileObject, gDriveFolderParent) => {
   return data;
 };
 
-module.exports = { uploadFile };
+const deleteFile = async (gDriveId) => {
+  const drive = google.drive({ version: "v3", auth });
+
+  // Delete the file by ID
+  const result = await drive.files.delete({
+    fileId: gDriveId,
+  });
+
+  console.log(`Deleted photo with gDriveId: ${gDriveId}`);
+
+  return result;
+};
+
+module.exports = { uploadFile, deleteFile };

@@ -113,7 +113,21 @@ const Error = {
   },
   MissingPhotos: {
     errCode: 125,
-    errMessage: "Your photos are missing, please try again",
+    errMessage: "Your uploaded photos are missing, please try again",
+  },
+
+  NoPhotosFound: {
+    errCode: 126,
+    errMessage: "No photos are found, please try again",
+  },
+
+  MissingPhotosGdriveId: {
+    errCode: 127,
+    errMessage: "Google Drive photo id missing",
+  },
+  DeletePhotoOnDriveFailed: {
+    errCode: 128,
+    errMessage: "Delete photo on drive failed",
   },
 
   // 200++ Error from Db

@@ -1,6 +1,7 @@
 const { PhotoModel } = require("../../models");
-const { uploadFile } = require("./utilities");
+const { uploadFile, deleteFile } = require("./utilities");
 const Error = require("../../config/constant/Error");
+const { PHOTOS_PER_PAGE } = require("../../config/constant/Env");
 const ResponseService = require("../response/response.service");
 
 const {
@@ -36,7 +37,10 @@ const uploadPhotos = async (files, category) => {
     const index = totalCount + 1;
 
     // **Calculate page**
-    const page = Math.ceil(index / 10) < 1 ? 1 : Math.ceil(index / 10);
+    const page =
+      Math.ceil(index / parseInt(PHOTOS_PER_PAGE)) < 1
+        ? 1
+        : Math.ceil(index / parseInt(PHOTOS_PER_PAGE));
 
     // Save photo document
     const photoToBeCreate = new PhotoModel({
@@ -53,4 +57,57 @@ const uploadPhotos = async (files, category) => {
   return true;
 };
 
-module.exports = { uploadPhotos };
+const getAllPhotos = async () => {
+  const photos = await PhotoModel.find() // Get all photos
+    .sort({ index: -1 }); // Sort in descending order based on index
+
+  if (!photos || !Object.keys(photos).length) {
+    throw ResponseService.newError(
+      Error.NoPhotosFound.errCode,
+      Error.NoPhotosFound.errMessage
+    );
+  }
+
+  console.log(photos);
+
+  return photos;
+};
+
+const getPhotosByPage = async (page) => {
+  const photos = await PhotoModel.find({ page }) // Filter by page
+    .sort({ index: -1 }); // Sort in descending order based on index
+
+  if (!photos || !Object.keys(photos).length) {
+    throw ResponseService.newError(
+      Error.NoPhotosFound.errCode,
+      Error.NoPhotosFound.errMessage
+    );
+  }
+
+  console.log(photos);
+
+  return photos;
+};
+
+const deletePhoto = async (gDriveId) => {
+  // Find and delete the photo by gDriveId in Mongo
+  const deletedPhoto = await PhotoModel.findOneAndDelete({ gDriveId });
+  if (!deletedPhoto || !Object.keys(deletedPhoto).length) {
+    throw ResponseService.newError(
+      Error.NoPhotosFound.errCode,
+      Error.NoPhotosFound.errMessage
+    );
+  }
+  // Delete in google drive
+  const result = await deleteFile(gDriveId);
+  if (!result) {
+    throw ResponseService.newError(
+      Error.DeletePhotoOnDriveFailed.errCode,
+      Error.DeletePhotoOnDriveFailed.errMessage
+    );
+  }
+
+  return;
+};
+
+module.exports = { uploadPhotos, getAllPhotos, getPhotosByPage, deletePhoto };

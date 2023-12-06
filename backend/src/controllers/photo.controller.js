@@ -3,10 +3,16 @@ const Error = require("../config/constant/Error");
 const { catchAsync } = require("../utils");
 
 const getAllPhotos = catchAsync(async (req, res) => {
-  const { username, password } = req.body;
-  const photo = await PhotoService.login(username, password);
+  const photos = await PhotoService.getAllPhotos();
 
-  res.status(200).json(ResponseService.newSucess(photo));
+  res.status(200).json(ResponseService.newSucess(photos));
+});
+
+const getPhotosByPage = catchAsync(async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Parse the page query parameter, default to 1 if not provided
+  const photos = await PhotoService.getPhotosByPage(page);
+
+  res.status(200).json(ResponseService.newSucess(photos));
 });
 
 const uploadPhotos = catchAsync(async (req, res) => {
@@ -38,16 +44,22 @@ const editPhoto = catchAsync(async (req, res) => {
 });
 
 const deletePhoto = catchAsync(async (req, res) => {
-  const { username, password } = req.body;
-  const photo = await PhotoService.getPhotoByPhotoname(username);
-  if (photo) {
+  const { gDriveId } = req.params;
+  if (!gDriveId) {
     throw ResponseService.newError(
-      Error.PhotoAlreadyExists.errCode,
-      Error.PhotoAlreadyExists.errMessage
+      Error.MissingPhotosGdriveId.errCode,
+      Error.MissingPhotosGdriveId.errMessage
     );
   }
-  const newPhoto = await PhotoService.createPhoto(username, password);
-  res.status(200).json(ResponseService.newSucess(newPhoto));
+  await PhotoService.deletePhoto(gDriveId);
+
+  res.status(200).json(ResponseService.newSucess());
 });
 
-module.exports = { getAllPhotos, uploadPhotos, editPhoto, deletePhoto };
+module.exports = {
+  getAllPhotos,
+  uploadPhotos,
+  editPhoto,
+  deletePhoto,
+  getPhotosByPage,
+};
