@@ -1,10 +1,12 @@
-const { PhotoModel } = require("../../models");
+const { PhotoModel, UserModel } = require("../../models");
 const { uploadFile, deleteFiles } = require("./utilities");
 const Error = require("../../config/constant/Error");
-const { PHOTOS_PER_PAGE } = require("../../config/constant/Env");
 const ResponseService = require("../response/response.service");
 
 const {
+  PHOTOS_PER_PAGE,
+  NODE_ENV,
+  TEST_FOLDER,
   GROOM_FOLDER,
   BRIDE_FOLDER,
   GENERAL_FOLDER,
@@ -12,7 +14,9 @@ const {
 
 const uploadPhotos = async (files, category) => {
   const gDriveFolderParent =
-    category === "bride"
+    NODE_ENV === "development"
+      ? TEST_FOLDER
+      : category === "bride"
       ? BRIDE_FOLDER
       : category === "groom"
       ? GROOM_FOLDER
@@ -89,12 +93,21 @@ const getPhotosByPage = async (page) => {
   return photos;
 };
 
-const deletePhotos = async (gDriveIds) => {
+const deletePhotos = async (gDriveIds, username, role) => {
+  // Check permission
+  const user = await UserModel.findOne({ username });
+  if (!user || username !== user.username || role !== user.role) {
+    throw ResponseService.newError(
+      Error.UnAuthorized.errCode,
+      Error.UnAuthorized.errMessage
+    );
+  }
+
   // Delete in google drive
   try {
     await deleteFiles(gDriveIds);
   } catch (err) {
-    console.log("Can not delete file on Google Drive err:" + err);
+    console.log("Can not delete file on Google Drive " + err);
     throw ResponseService.newError(
       Error.DeletePhotoOnDriveFailed.errCode,
       Error.DeletePhotoOnDriveFailed.errMessage

@@ -129,6 +129,10 @@ const Error = {
     errCode: 128,
     errMessage: "Delete photo on drive failed",
   },
+  UnAuthorized: {
+    errCode: 129,
+    errMessage: "Unauthorized to perform this action",
+  },
 
   // 200++ Error from Db
   CastError: {

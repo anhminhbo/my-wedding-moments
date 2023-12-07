@@ -1,29 +1,44 @@
 const { UserModel } = require("../../models");
-const crypto = require("crypto");
+const bcrypt = require("bcrypt");
+const Error = require("../../config/constant/Error");
 
-const createUser = async (username, password) => {
+const createUser = async (username, password, role) => {
+  // generate salt to hash password
+  const salt = await bcrypt.genSalt(10);
+
+  const hashedPassword = await bcrypt.hash(password, salt);
+
   const userToBeCreate = new UserModel({
     username,
-    password,
+    password: hashedPassword,
+    role,
   });
 
   const user = await userToBeCreate.save();
+
   return user;
 };
 
 const login = async (username, password) => {
-  // Create a SHA-256 hash object
-  const hash = crypto.createHash("sha256");
+  const user = await UserModel.findOne({ username });
+  if (!user) {
+    throw ResponseService.newError(
+      Error.UserNotFound.errCode,
+      Error.UserNotFound.errMessage
+    );
+  }
 
-  // Update the hash with the input string
-  hash.update(password);
+  // check user password with hashed password stored in the database
+  const validPassword = await bcrypt.compare(password, user.password);
 
-  // Get the hexadecimal representation of the hash
-  const hashedPassword = hash.digest("hex");
+  if (!validPassword) {
+    throw ResponseService.newError(
+      Error.PasswordInvalid.errCode,
+      Error.PasswordInvalid.errMessage
+    );
+  }
 
-  const params = [username, hashedPassword];
-
-  return results;
+  return;
 };
 
 const getUserByUsername = async (username) => {

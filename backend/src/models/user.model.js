@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      required: true,
+    },
   },
   { minimize: false, timestamps: true } // for removing empty obj and add time stamp
 );

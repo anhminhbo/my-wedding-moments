@@ -44,14 +44,15 @@ const editPhoto = catchAsync(async (req, res) => {
 });
 
 const deletePhotos = catchAsync(async (req, res) => {
-  const { gDriveIds } = req.body;
+  const { gDriveIds, username, role } = req.body;
+
   if (!gDriveIds || !Array.isArray(gDriveIds) || gDriveIds.length === 0) {
     throw ResponseService.newError(
       Error.MissingPhotosGdriveId.errCode,
       Error.MissingPhotosGdriveId.errMessage
     );
   }
-  await PhotoService.deletePhotos(gDriveIds);
+  await PhotoService.deletePhotos(gDriveIds, username, role);
 
   res.status(200).json(ResponseService.newSucess());
 });
