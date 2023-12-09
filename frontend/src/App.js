@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
+
+import AdminDashboard from "./components/AdminDashboard";
+import ViewPhotos from "./components/ViewPhotos";
+import UploadPhotos from "./components/UploadPhotos";
 
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
@@ -26,8 +31,9 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <>
+      <div className="App">
+        {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -47,8 +53,17 @@ function App() {
             <pre>{JSON.stringify(backendData, null, 2)}</pre>
           </div>
         )}
-      </header>
-    </div>
+      </header> */}
+        {/* Routes */}
+        <Router>
+          <Routes>
+            <Route path="/" element={<UploadPhotos />} />
+            <Route path="/viewPhotos" element={<ViewPhotos />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+          </Routes>
+        </Router>
+      </div>
+    </>
   );
 }
 
