@@ -46,6 +46,7 @@ metadata:
   namespace: my-wedding-moments-prod
   annotations:
     cert-manager.io/cluster-issuer: "cert-manager-global"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m" # Adjust the size accordingly
     # nginx.ingress.kubernetes.io/configuration-snippet: |
     #   proxy_set_header X-Real-IP $remote_addr;
     #   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
