@@ -88,9 +88,9 @@ const getPhotosByPage = async (page) => {
     );
   }
 
-  console.log(photos);
+  const totalPhotos = await PhotoModel.countDocuments();
 
-  return photos;
+  return { photos, totalPhotos };
 };
 
 const deletePhotos = async (gDriveIds, username, role) => {

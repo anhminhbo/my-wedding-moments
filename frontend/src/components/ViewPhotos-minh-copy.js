@@ -28,7 +28,7 @@ const ViewPhotos = () => {
     if (
       container &&
       container.scrollTop + container.clientHeight >=
-        container.scrollHeight - 400
+        container.scrollHeight - 200
     ) {
       loadImages(false);
     }
@@ -70,24 +70,24 @@ const ViewPhotos = () => {
 
     if (mount) {
       setLoading(true);
-      const { data } = await response.json();
-      console.log(data);
-      const totalPages = Math.ceil(data?.totalPhotos / 10) + 1;
-      setPageLimit(totalPages);
+      const data = await response.json();
 
-      setImages((prevImages) => [...prevImages, ...data.photos]);
+      const totalPages = Math.ceil(data?.total_photos / 10);
+      setPageLimit(10);
+
+      setImages((prevImages) => [...prevImages, ...data.data]);
 
       page.current += 1;
       setLoading(false);
     } else {
       setLoading(true);
 
-      const { data } = await response.json();
-      const totalPages = Math.ceil(data?.totalPhotos / 10) + 1;
-      setPageLimit(totalPages);
+      const data = await response.json();
+      const totalPages = Math.ceil(data?.total_photos / 10);
+      setPageLimit(10);
 
       if (page.current <= totalPages) {
-        setImages((prevImages) => [...prevImages, ...data.photos]);
+        setImages((prevImages) => [...prevImages, ...data.data]);
 
         page.current += 1;
         setLoading(false);
@@ -114,7 +114,7 @@ const ViewPhotos = () => {
                   component="img"
                   height="auto"
                   image={image.gDriveUrl}
-                  alt={image.title}
+                  alt={image.name}
                 />
                 <CardContent>
                   <div style={{ maxHeight: "120px", overflow: "hidden" }}>

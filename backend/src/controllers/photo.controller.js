@@ -10,9 +10,9 @@ const getAllPhotos = catchAsync(async (req, res) => {
 
 const getPhotosByPage = catchAsync(async (req, res) => {
   const page = parseInt(req.query.page) || 1; // Parse the page query parameter, default to 1 if not provided
-  const photos = await PhotoService.getPhotosByPage(page);
+  const { photos, totalPhotos } = await PhotoService.getPhotosByPage(page);
 
-  res.status(200).json(ResponseService.newSucess(photos));
+  res.status(200).json(ResponseService.newSucess({ photos, totalPhotos }));
 });
 
 const uploadPhotos = catchAsync(async (req, res) => {
