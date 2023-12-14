@@ -1,7 +1,18 @@
 .App {
   text-align: center;
+  background-image: url("./img/homepage/wedding_background.png");
+  background-size: cover;
+  height: 100%;
 }
 
+#root{
+  height: 100vh;
+}
+
+body,html {
+  min-height: 100vh;
+  overflow: auto;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +47,4 @@
     transform: rotate(360deg);
   }
 }
+
