@@ -1,7 +1,7 @@
 variable "project" {
   description = "The project ID to host the cluster in"
   type        = string
-  default     = "composite-fire-396311"
+  default     = "steam-way-409214"
 }
 
 variable "name" {
