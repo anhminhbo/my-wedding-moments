@@ -15,7 +15,7 @@ spec:
         app: my-wedding-moments-be
     spec:
       containers:
-        - image: anhminhbo/my-wedding-moments-be:1
+        - image: anhminhbo/my-wedding-moments-be:14
           name: my-wedding-moments-be
 
           envFrom:

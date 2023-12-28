@@ -2,45 +2,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-wedding-moments-fe
-  namespace: my-wedding-moments-prod
+  name: be-pumi
+  namespace: pumi-prod
 spec:
   selector:
     matchLabels:
-      app: my-wedding-moments-fe
+      app: be-pumi
   replicas: 1
   template:
     metadata:
       labels:
-        app: my-wedding-moments-fe
+        app: be-pumi
     spec:
       containers:
-        - image: anhminhbo/my-wedding-moments-fe:10
-          name: my-wedding-moments-fe
+        - image: anhminhbo/bits-backend:68
+          name: be-pumi
+
+          envFrom:
+            - configMapRef:
+                name: be-pumi-secret
 
           ports:
-            - containerPort: 80
-
+            - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-wedding-moments-fe
-  namespace: my-wedding-moments-prod
+  name: be-pumi
+  namespace: pumi-prod
 spec:
   ports:
-    - port: 80
+    - port: 8080
       protocol: TCP
   type: ClusterIP
   selector:
-    app: my-wedding-moments-fe
+    app: be-pumi
 
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: my-wedding-moments-fe
-  namespace: my-wedding-moments-prod
+  name: be-pumi
+  namespace: pumi-prod
   annotations:
     cert-manager.io/cluster-issuer: "cert-manager-global"
     # nginx.ingress.kubernetes.io/configuration-snippet: |
@@ -54,17 +57,17 @@ spec:
 
   tls:
     - hosts:
-        - lovemoments.bug-fix-squad.com
-      secretName: my-wedding-moments-fe-private-key
+        - pumidoro-music.bug-fix-squad.com
+      secretName: cert-manager-private-key
 
   rules:
-    - host: lovemoments.bug-fix-squad.com
+    - host: pumidoro-music.bug-fix-squad.com
       http:
         paths:
-          - path: /
+          - path: /api
             pathType: Prefix
             backend:
               service:
-                name: my-wedding-moments-fe
+                name: be-pumi
                 port:
-                  number: 80
+                  number: 8080
