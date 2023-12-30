@@ -41,7 +41,6 @@ const UploadPhotos = () => {
       style={{
         fontFamily: "Arial, sans-serif",
         backgroundColor: "#f0f0f0",
-        marginTop: "100px",
       }}
     >
       <div

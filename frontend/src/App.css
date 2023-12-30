@@ -2,6 +2,7 @@
   text-align: center;
   background-image: url("./img/homepage/wedding_background.png");
   background-size: cover;
+  background-repeat: no-repeat;
   height: 100%;
 }
 
@@ -26,7 +27,6 @@ body,html {
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
