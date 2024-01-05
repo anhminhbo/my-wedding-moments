@@ -38,6 +38,8 @@ const UploadPhotos = () => {
     }
   };
 
+  const [showed,setShowed] = useState(true);
+
   return (
     <div>
       <div
@@ -64,6 +66,7 @@ const UploadPhotos = () => {
             top: "33%",
             left: "50%",
             transform: "translate(-50%,-50%)",
+            display: showed ? "none" : "",
           }}>
             <div className="custom-file-input"  >
               <input
@@ -110,7 +113,8 @@ const UploadPhotos = () => {
             top: "70%",
             left: "50%",
             transform: "translate(-50%,-50%)",
-          }}>
+          }}
+          onClick={() => setShowed(!showed)}>
           Upload Photos
         </button>
         <button class="button-85"
