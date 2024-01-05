@@ -46,72 +46,80 @@ const UploadPhotos = () => {
           textAlign: "center",
         }}
       >
-        <h3 style={{ 
-          color: "#DC143C", 
-          position: "fixed", 
+        <h3 style={{
+          color: "#DC143C",
+          position: "fixed",
           fontFamily: "Brush Script MT",
           textSizeAdjust: "80%",
           fontSize: "3vh",
           top: "3%",
-          left:"50%",
+          left: "50%",
           transform: "translate(-50%,-50%)"
-          }}>
+        }}>
           Photo Wedding <br /> Minh & Thy
         </h3>
-        {/* <form onSubmit={handleSubmit}>
-          <div className="custom-file-input">
-            <input
-              id="fileInput"
-              type="file"
-              name="Files"
-              required
-              multiple
-              onChange={handleFileInputChange}
-            />
-            <h2> Category</h2>
-            <select name="category" id="category">
-              <option value="groom">Groom</option>
-              <option value="bride">Bride</option>
-              <option value="general">General</option>
-            </select>
-            <label htmlFor="fileInput" id="fileInputLabel">
-              {uploadStatus}
-            </label>
-          </div>
-          <button
-            type="submit"
-            id="myButton"
-            style={{
-              display: "block",
-              marginTop: "20px",
-              backgroundColor: "#4caf50",
-              color: "#fff",
-              border: "none",
-              padding: "10px 15px",
-              borderRadius: "3px",
-              cursor: "pointer",
-              transition: "background-color 0.3s",
-            }}
-          >
-            Submit
-          </button>
-        </form> */}
+        <div>
+          <form class="button-85" onSubmit={handleSubmit} style={{
+            position: "fixed",
+            top: "33%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}>
+            <div className="custom-file-input"  >
+              <input
+                id="fileInput"
+                type="file"
+                name="Files"
+                required
+                multiple
+                onChange={handleFileInputChange}
+              />
+              <h2> Category</h2>
+              <select name="category" id="category">
+                <option value="groom">Groom</option>
+                <option value="bride">Bride</option>
+                <option value="general">General</option>
+              </select>
+              <label htmlFor="fileInput" id="fileInputLabel">
+                {uploadStatus}
+              </label>
+            </div>
+            <button
+              type="submit"
+              id="myButton"
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#4caf50",
+                color: "#fff",
+                border: "none",
+                padding: "10px 15px",
+                borderRadius: "3px",
+                transition: "background-color 0.3s",
+              }}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
       </div>
       <div>
         <button class="button-85"
           style={{
-            position: "fixed", 
+            position: "fixed",
             top: "70%",
-            left:"50%",
-            transform: "translate(-50%,-50%)"}}>
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}>
           Upload Photos
         </button>
-        <button class="button-85" 
+        <button class="button-85"
           style={{
-            position: "fixed", 
+            position: "fixed",
             top: "80%",
-            left:"50%",
-            transform: "translate(-50%,-50%)"}}>
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}>
           View Photos
         </button>
       </div>
