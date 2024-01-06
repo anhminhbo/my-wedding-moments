@@ -53,12 +53,12 @@ const UploadPhotos = () => {
           position: "fixed",
           fontFamily: "Brush Script MT",
           textSizeAdjust: "80%",
-          fontSize: "3vh",
+          fontSize: "2.5vh",
           top: "3%",
           left: "50%",
           transform: "translate(-50%,-50%)"
         }}>
-          Photo Wedding <br /> Minh & Thy
+          Save The Date<br /> Anh Minh & Mẫn Thy <br/> 21-01-2024
         </h3>
         <div>
           <form class="button-85" onSubmit={handleSubmit} style={{
