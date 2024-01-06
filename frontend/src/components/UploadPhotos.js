@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "../style/uploadPhotos.css";
+
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const UploadPhotos = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -36,74 +38,102 @@ const UploadPhotos = () => {
     }
   };
 
+  const [showed,setShowed] = useState(true);
+
   return (
-    <div
-      style={{
-        fontFamily: "Arial, sans-serif",
-        backgroundColor: "#f0f0f0",
-        marginTop: "100px",
-      }}
-    >
+    <div>
       <div
         style={{
-          backgroundColor: "#fff",
-          padding: "20px",
-          borderRadius: "5px",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          maxWidth: "400px",
           margin: "0 auto",
           textAlign: "center",
         }}
       >
-        <h2 style={{ color: "#333" }}>
-          Select Files to Upload To Google Drive
-        </h2>
-        <p style={{ display: "none" }}>{uploadStatus}</p>
-        <form onSubmit={handleSubmit}>
-          <div className="custom-file-input">
-            <input
-              id="fileInput"
-              type="file"
-              name="Files"
-              required
-              multiple
-              onChange={handleFileInputChange}
-            />
-            <h2> Category</h2>
-            <select name="category" id="category">
-              <option value="groom">Groom</option>
-              <option value="bride">Bride</option>
-              <option value="general">General</option>
-            </select>
-            <label htmlFor="fileInput" id="fileInputLabel">
-              {uploadStatus}
-            </label>
-          </div>
-          <button
-            type="submit"
-            id="myButton"
-            style={{
-              display: "block",
-              marginTop: "20px",
-              backgroundColor: "#4caf50",
-              color: "#fff",
-              border: "none",
-              padding: "10px 15px",
-              borderRadius: "3px",
-              cursor: "pointer",
-              transition: "background-color 0.3s",
-            }}
-          >
-            Submit
-          </button>
-        </form>
+        <h3 style={{
+          color: "#DC143C",
+          position: "fixed",
+          fontFamily: "Brush Script MT",
+          textSizeAdjust: "80%",
+          fontSize: "3vh",
+          top: "3%",
+          left: "50%",
+          transform: "translate(-50%,-50%)"
+        }}>
+          Photo Wedding <br /> Minh & Thy
+        </h3>
+        <div>
+          <form class="button-85" onSubmit={handleSubmit} style={{
+            position: "fixed",
+            top: "33%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            display: showed ? "none" : "",
+          }}>
+            <div className="custom-file-input"  >
+              <input
+                id="fileInput"
+                type="file"
+                name="Files"
+                required
+                multiple
+                onChange={handleFileInputChange}
+              />
+              <h2> Category</h2>
+              <select name="category" id="category">
+                <option value="groom">Groom</option>
+                <option value="bride">Bride</option>
+                <option value="general">General</option>
+              </select>
+              <label htmlFor="fileInput" id="fileInputLabel">
+                {uploadStatus}
+              </label>
+            </div>
+            <button
+              type="submit"
+              id="myButton"
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#4caf50",
+                color: "#fff",
+                border: "none",
+                padding: "10px 15px",
+                borderRadius: "3px",
+                transition: "background-color 0.3s",
+              }}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+
       </div>
-      <img
+      <div>
+        <button class="button-85"
+          style={{
+            position: "fixed",
+            top: "70%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}
+          onClick={() => setShowed(!showed)}>
+          Upload Photos
+        </button>
+        <button class="button-85"
+          style={{
+            position: "fixed",
+            top: "80%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+          }}>
+          View Photos
+        </button>
+      </div>
+      {/* <img
         src="https://drive.google.com/uc?export=view&id=1V0topsC7vvLGTzhOxYb02fyHvDVMkVEN"
         alt="Your Image"
-      />
+      /> */}
     </div>
   );
 };
+
 
 export default UploadPhotos;
