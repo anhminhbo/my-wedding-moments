@@ -50,7 +50,7 @@ const uploadPhotos = async (files, category) => {
     const photoToBeCreate = new PhotoModel({
       gDriveId: result.id,
       name: result.name,
-      gDriveUrl: `https://drive.google.com/uc?export=view&id=${result.id}`,
+      gDriveUrl: `https://drive.google.com/thumbnail?id=${result.id}`,
       index,
       page,
       category,
