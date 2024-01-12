@@ -6,6 +6,7 @@ import "./App.css";
 import AdminDashboard from "./components/AdminDashboard";
 import ViewPhotos from "./components/ViewPhotos";
 import UploadPhotos from "./components/UploadPhotos";
+import ViewPhotosTest from "./components/ViewPhotosTest";
 
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
@@ -59,6 +60,8 @@ function App() {
           <Routes>
             <Route path="/" element={<UploadPhotos />} />
             <Route path="/viewPhotos" element={<ViewPhotos />} />
+            <Route path="/viewPhotos-test" element={<ViewPhotosTest />} />
+
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </Router>
