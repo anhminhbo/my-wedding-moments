@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 import "../style/uploadPhotos.css";
 
@@ -50,27 +50,34 @@ const UploadPhotos = () => {
           textAlign: "center",
         }}
       >
-        <h3 style={{
-          color: "#DC143C",
-          position: "fixed",
-          fontFamily: "Brush Script MT",
-          textSizeAdjust: "80%",
-          fontSize: "2.5vh",
-          top: "3%",
-          left: "50%",
-          transform: "translate(-50%,-50%)"
-        }}>
-          Save The Date<br /> Anh Minh & Mẫn Thy <br/> 21-01-2024
-        </h3>
-        <div>
-          <form class="button-85" onSubmit={handleSubmit} style={{
+        <h3
+          style={{
+            color: "#DC143C",
             position: "fixed",
-            top: "33%",
+            fontFamily: "Brush Script MT",
+            textSizeAdjust: "80%",
+            fontSize: "2.5vh",
+            top: "3%",
             left: "50%",
             transform: "translate(-50%,-50%)",
-            display: showed ? "none" : "",
-          }}>
-            <div className="custom-file-input"  >
+          }}
+        >
+          Save The Date
+          <br /> Anh Minh & Mẫn Thy <br /> 21-01-2024
+        </h3>
+        <div>
+          <form
+            class="button-85"
+            onSubmit={handleSubmit}
+            style={{
+              position: "fixed",
+              top: "33%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+              display: showed ? "none" : "",
+            }}
+          >
+            <div className="custom-file-input">
               <input
                 id="fileInput"
                 type="file"
@@ -79,7 +86,10 @@ const UploadPhotos = () => {
                 multiple
                 onChange={handleFileInputChange}
               />
-              <h4> Friend's category: <br/> (Chọn người quen)</h4>
+              <h4>
+                {" "}
+                Friend's category: <br /> (Chọn người quen)
+              </h4>
               <select name="category" id="category">
                 <option value="groom">Groom (Bạn Nhà Chú Rể)</option>
                 <option value="bride">Bride (Bạn Nhà Cô Dâu)</option>
@@ -102,25 +112,29 @@ const UploadPhotos = () => {
                 padding: "10px 15px",
                 borderRadius: "3px",
                 transition: "background-color 0.3s",
-              }}>
+              }}
+              onClick={() => setUploadStatus("Uploading...(Đang tải hình...)")}
+            >
               Upload
             </button>
           </form>
         </div>
-
       </div>
       <div>
-        <button class="button-85"
+        <button
+          class="button-85"
           style={{
             position: "fixed",
             top: "70%",
             left: "50%",
             transform: "translate(-50%,-50%)",
           }}
-          onClick={() => setShowed(!showed)}>
+          onClick={() => setShowed(!showed)}
+        >
           Upload Photos
         </button>
-        <button class="button-85"
+        <button
+          class="button-85"
           style={{
             position: "fixed",
             top: "80%",
@@ -128,17 +142,14 @@ const UploadPhotos = () => {
             transform: "translate(-50%,-50%)",
           }}
           onClick={() => {
-            navigate('/viewPhotos');
+            navigate("/viewPhotos");
           }}
-          >
+        >
           View Photos
         </button>
-
       </div>
-
     </div>
   );
 };
-
 
 export default UploadPhotos;
