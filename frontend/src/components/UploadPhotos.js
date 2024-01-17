@@ -78,8 +78,8 @@ const UploadPhotos = () => {
               />
               <h4> Friend's category: <br/> (Chọn người quen)</h4>
               <select name="category" id="category">
-                <option value="groom">Groom (Bạn Chú Rể)</option>
-                <option value="bride">Bride (Bạn Cô Dâu)</option>
+                <option value="groom">Groom (Bạn Nhà Chú Rể)</option>
+                <option value="bride">Bride (Bạn Nhà Cô Dâu)</option>
                 <option value="general">General (Bạn Chung)</option>
               </select>
               <div>
