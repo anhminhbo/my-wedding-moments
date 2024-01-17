@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import "../style/viewPhotos.css";
 
 const PhotoGallery = () => {
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(1);
   const backEndUrl = process.env.REACT_APP_BACKEND_URL;
+  
 
   // Fetch all photos
   const fetchAllPhotos = async () => {
@@ -23,10 +25,15 @@ const PhotoGallery = () => {
   }, []);
 
   return (
-    <div>
-      {photos.map(photo => (
-        <img referrerPolicy="no-referrer" key={photo._id} src={photo.gDriveUrl} alt={photo.name} />
-      ))}
+    <div className="container">
+      <div className="box">
+
+        {photos.map(photo => (
+          <img referrerPolicy="no-referrer" key={photo._id} src={photo.gDriveUrl} alt={photo.name} />
+        ))}
+
+      </div>
+
     </div>
   );
 };
