@@ -8,6 +8,7 @@ const UploadPhotos = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadStatus, setUploadStatus] = useState(null);
   const navigate = useNavigate();
+  const [showed, setShowed] = useState(true);
 
   const handleFileInputChange = (e) => {
     const files = e.target.files;
@@ -34,14 +35,12 @@ const UploadPhotos = () => {
         method: "POST",
         body: formData,
       });
-      setUploadStatus("Successfully uploaded to drive");
+      setUploadStatus("Upload Successful (Tải hình lên thành công)");
     } catch (error) {
-      setUploadStatus(`Was not uploaded: ${error}`);
+      setUploadStatus(`Upload Unsuccess ,error: ${error}`);
       console.error(error);
     }
   };
-
-  const [showed,setShowed] = useState(true);
 
   return (
     <div>
@@ -80,15 +79,17 @@ const UploadPhotos = () => {
                 multiple
                 onChange={handleFileInputChange}
               />
-              <h2> Category</h2>
+              <h4> Friend's category: <br/> (Chọn người quen)</h4>
               <select name="category" id="category">
-                <option value="groom">Groom</option>
-                <option value="bride">Bride</option>
-                <option value="general">General</option>
+                <option value="groom">Groom (Bạn Nhà Chú Rể)</option>
+                <option value="bride">Bride (Bạn Nhà Cô Dâu)</option>
+                <option value="general">General (Bạn Chung)</option>
               </select>
-              <label htmlFor="fileInput" id="fileInputLabel">
-                {uploadStatus}
-              </label>
+              <div>
+                <label htmlFor="fileInput" id="fileInputLabel">
+                  {uploadStatus}
+                </label>
+              </div>
             </div>
             <button
               type="submit"
@@ -101,9 +102,8 @@ const UploadPhotos = () => {
                 padding: "10px 15px",
                 borderRadius: "3px",
                 transition: "background-color 0.3s",
-              }}
-            >
-              Submit
+              }}>
+              Upload
             </button>
           </form>
         </div>
@@ -133,11 +133,9 @@ const UploadPhotos = () => {
           >
           View Photos
         </button>
+
       </div>
-      {/* <img
-        src="https://drive.google.com/uc?export=view&id=1V0topsC7vvLGTzhOxYb02fyHvDVMkVEN"
-        alt="Your Image"
-      /> */}
+
     </div>
   );
 };
