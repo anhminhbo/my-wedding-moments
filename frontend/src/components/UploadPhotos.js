@@ -6,7 +6,9 @@ import "../style/uploadPhotos.css";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const UploadPhotos = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadStatus, setUploadStatus] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState(
+    "Choose photos max 5(Chọn hình nha, tối đa 5)"
+  );
   const navigate = useNavigate();
   const [showed, setShowed] = useState(true);
 
@@ -15,12 +17,17 @@ const UploadPhotos = () => {
     setSelectedFiles(files);
 
     if (files.length > 0) {
-      const fileName =
-        files.length === 1 ? files[0].name : `${files.length} files selected`;
+      const fileName = `${files.length} files selected (Chọn ${files.length} tấm hình)`;
       setUploadStatus(fileName);
     } else {
-      setUploadStatus("Select Files");
+      setUploadStatus("Choose photos max 5(Chọn hình nha, tối đa 5)");
     }
+  };
+
+  const revertFormToDefault = async (uploadStatusMsg) => {
+    setUploadStatus(uploadStatusMsg);
+    setSelectedFiles([]);
+    document.getElementById("fileInput").value = null; // Reset the input field
   };
 
   const handleSubmit = async (e) => {
@@ -29,6 +36,16 @@ const UploadPhotos = () => {
     try {
       const formData = new FormData(e.target);
       const category = e.target.elements.category.value;
+      const files = e.target.elements.Files.files;
+
+      if (files.length > 5) {
+        revertFormToDefault(
+          "Only 5 photos upload allow(Chỉ được tải lên tối đa 5 tấm)"
+        );
+      } else {
+        revertFormToDefault("");
+      }
+      console.log(files);
       console.log(category); // Retrieve the selected category
       formData.set("category", category); // Append the category value to the FormData
       await fetch(`${backendURL}/api/photo/uploadPhotos`, {
@@ -37,7 +54,7 @@ const UploadPhotos = () => {
       });
       setUploadStatus("Upload Successful (Tải hình lên thành công)");
     } catch (error) {
-      setUploadStatus(`Upload Unsuccess ,error: ${error}`);
+      revertFormToDefault(`Upload Unsuccess ,error: ${error}`);
       console.error(error);
     }
   };
@@ -77,6 +94,9 @@ const UploadPhotos = () => {
               display: showed ? "none" : "",
             }}
           >
+            <label htmlFor="fileInput" id="fileInputLabel">
+              Choose photos max 5(Chọn hình nha, tối đa 5)
+            </label>
             <div className="custom-file-input">
               <input
                 id="fileInput"
