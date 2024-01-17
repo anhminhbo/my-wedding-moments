@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import "../style/uploadPhotos.css";
 
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const UploadPhotos = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadStatus, setUploadStatus] = useState(null);
+  const navigate = useNavigate();
 
   const handleFileInputChange = (e) => {
     const files = e.target.files;
@@ -123,7 +126,11 @@ const UploadPhotos = () => {
             top: "80%",
             left: "50%",
             transform: "translate(-50%,-50%)",
-          }}>
+          }}
+          onClick={() => {
+            navigate('/viewPhotos');
+          }}
+          >
           View Photos
         </button>
       </div>
