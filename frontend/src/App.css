@@ -1,10 +1,12 @@
 .App {
   text-align: center;
   background-image: url("./img/homepage/wedding_background.png");
-  background-size: cover;
-  background-position: center center;
+  background-size: 470px;
+  background-position: center 80%;
+  background-attachment: fixed;
   background-repeat: no-repeat;
-  height: 100%;
+  min-height: 100%;
+  height: max-content;
 }
 
 #root{
