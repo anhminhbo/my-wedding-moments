@@ -29,7 +29,9 @@ const PhotoGallery = () => {
       <div className="box">
 
         {photos.map(photo => (
-          <img referrerPolicy="no-referrer" key={photo._id} src={photo.gDriveUrl} alt={photo.name} />
+          <div className="img-container">
+            <img referrerPolicy="no-referrer" key={photo._id} src={photo.gDriveUrl} alt={photo.name} className='photo'/>
+          </div>
         ))}
 
       </div>
