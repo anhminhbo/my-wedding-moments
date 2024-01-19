@@ -6,9 +6,7 @@ import "../style/uploadPhotos.css";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const UploadPhotos = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadStatus, setUploadStatus] = useState(
-    ""
-  );
+  const [uploadStatus, setUploadStatus] = useState("");
   const navigate = useNavigate();
   const [showed, setShowed] = useState(true);
 
@@ -20,7 +18,9 @@ const UploadPhotos = () => {
       const fileName = `${files.length} files selected (Đã chọn ${files.length} tấm hình)`;
       setUploadStatus(fileName);
     } else {
-      setUploadStatus("Please note: You can only upload up to 5 pictures. <br/> (Xin lưu ý: Bạn chỉ có thể tải lên tối đa 5 tấm)");
+      setUploadStatus(
+        "Please note: You can only upload up to 5 pictures. <br/> (Xin lưu ý: Bạn chỉ có thể tải lên tối đa 5 tấm)"
+      );
     }
   };
 
@@ -38,13 +38,26 @@ const UploadPhotos = () => {
       const category = e.target.elements.category.value;
       const files = e.target.elements.Files.files;
 
+      if (!files || files.length === 0) {
+        revertFormToDefault(
+          "Please select at least one file.(Vui lòng chọn ít nhất 1 tấm hình"
+        );
+        return;
+      }
+
       if (files.length > 5) {
         revertFormToDefault(
           "You can only upload up to 5 pictures (Chỉ được tải lên tối đa 5 tấm)."
         );
+        return;
       } else {
-        revertFormToDefault("");
+        setUploadStatus("Uploading (Đang tải hình)...")
       }
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append("Files", files[i]);
+      }
+
       console.log(files);
       console.log(category); // Retrieve the selected category
       formData.set("category", category); // Append the category value to the FormData
@@ -82,9 +95,9 @@ const UploadPhotos = () => {
           }}
         >
           Save The Date
-          <br /> 
-          Anh Minh & Mẫn Thy 
-          <br /> 
+          <br />
+          Anh Minh & Mẫn Thy
+          <br />
           21-01-2024
         </h3>
         <div>
@@ -101,10 +114,14 @@ const UploadPhotos = () => {
               gap: "10px",
             }}
           >
-            <label htmlFor="fileInput" id="fileInputLabel" style={{
-              fontSize: "max(1vw, 16px)",
-            }}>
-              Please note: You can only upload up to 5 pictures. 
+            <label
+              htmlFor="fileInput"
+              id="fileInputLabel"
+              style={{
+                fontSize: "max(1vw, 16px)",
+              }}
+            >
+              Please note: You can only upload up to 5 pictures.
               <br />
               (Xin lưu ý: Bạn chỉ có thể tải lên tối đa 5 tấm hình.)
             </label>
@@ -117,9 +134,11 @@ const UploadPhotos = () => {
                 multiple
                 onChange={handleFileInputChange}
               />
-              <h4 style={{
-                fontSize: "max(1vw, 16px)",
-              }}>
+              <h4
+                style={{
+                  fontSize: "max(1vw, 16px)",
+                }}
+              >
                 Friend's category: (Chọn người quen)
               </h4>
               <select name="category" id="category" className="select-dropdown">
