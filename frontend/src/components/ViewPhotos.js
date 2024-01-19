@@ -5,7 +5,9 @@ const PhotoGallery = () => {
   const [photos, setPhotos] = useState([]);
   const [page, setPage] = useState(1);
   const backEndUrl = process.env.REACT_APP_BACKEND_URL;
-  
+  const [showFullScreen, setShowFullScreen] = useState(false);
+  const imagRef = React.createRef();
+  const [getUrl, setUrl] = useState();
 
   // Fetch all photos
   const fetchAllPhotos = async () => {
@@ -14,6 +16,15 @@ const PhotoGallery = () => {
     return data.data;
   };
 
+  const handleImageClick = (url) => {
+    setUrl(url);
+    setShowFullScreen(true);
+  };
+
+  const handleCloseFullScreen = () => {
+    setShowFullScreen(false);
+  }
+  
   // Load all photos on initial render
   useEffect(() => {
     const loadAllPhotos = async () => {
@@ -29,11 +40,31 @@ const PhotoGallery = () => {
       <div className="box">
 
         {photos.map(photo => (
-          <img referrerPolicy="no-referrer" key={photo._id} src={photo.gDriveUrl} alt={photo.name} />
+          <div>
+            <img
+              referrerPolicy="no-referrer"
+              key={photo._id}
+              src={photo.gDriveUrl}
+              alt={photo.name}
+              onClick={() => handleImageClick(photo.gDriveUrl)} />
+
+            {showFullScreen && (
+              <div
+                className="fullscreen-overlay active"
+                onClick={handleCloseFullScreen}
+              >
+                <div className="fullscreen-image">
+                  <img
+                    id="fullscreenImg"
+                    className="centered-image"
+                    src={getUrl}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         ))}
-
       </div>
-
     </div>
   );
 };
