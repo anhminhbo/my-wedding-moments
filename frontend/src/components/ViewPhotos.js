@@ -24,7 +24,7 @@ const PhotoGallery = () => {
   const handleCloseFullScreen = () => {
     setShowFullScreen(false);
   }
-  
+
   // Load all photos on initial render
   useEffect(() => {
     const loadAllPhotos = async () => {

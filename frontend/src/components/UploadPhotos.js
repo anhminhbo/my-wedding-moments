@@ -6,9 +6,7 @@ import "../style/uploadPhotos.css";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 const UploadPhotos = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadStatus, setUploadStatus] = useState(
-    "Choose photos max 5(Chọn hình nha, tối đa 5)"
-  );
+  const [uploadStatus, setUploadStatus] = useState("");
   const navigate = useNavigate();
   const [showed, setShowed] = useState(true);
 
@@ -17,10 +15,12 @@ const UploadPhotos = () => {
     setSelectedFiles(files);
 
     if (files.length > 0) {
-      const fileName = `${files.length} files selected (Chọn ${files.length} tấm hình)`;
+      const fileName = `${files.length} files selected (Đã chọn ${files.length} tấm hình)`;
       setUploadStatus(fileName);
     } else {
-      setUploadStatus("Choose photos max 5(Chọn hình nha, tối đa 5)");
+      setUploadStatus(
+        "Please note: You can only upload up to 5 pictures. <br/> (Xin lưu ý: Bạn chỉ có thể tải lên tối đa 5 tấm)"
+      );
     }
   };
 
@@ -38,13 +38,26 @@ const UploadPhotos = () => {
       const category = e.target.elements.category.value;
       const files = e.target.elements.Files.files;
 
+      if (!files || files.length === 0) {
+        revertFormToDefault(
+          "Please select at least one file.(Vui lòng chọn ít nhất 1 tấm hình"
+        );
+        return;
+      }
+
       if (files.length > 5) {
         revertFormToDefault(
-          "Only 5 photos upload allow(Chỉ được tải lên tối đa 5 tấm)"
+          "You can only upload up to 5 pictures (Chỉ được tải lên tối đa 5 tấm)."
         );
+        return;
       } else {
-        revertFormToDefault("");
+        setUploadStatus("Uploading (Đang tải hình)...")
       }
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append("Files", files[i]);
+      }
+
       console.log(files);
       console.log(category); // Retrieve the selected category
       formData.set("category", category); // Append the category value to the FormData
@@ -52,9 +65,9 @@ const UploadPhotos = () => {
         method: "POST",
         body: formData,
       });
-      setUploadStatus("Upload Successful (Tải hình lên thành công)");
+      setUploadStatus("Upload Successful (Tải hình ảnh lên thành công)");
     } catch (error) {
-      revertFormToDefault(`Upload Unsuccess ,error: ${error}`);
+      revertFormToDefault(`Upload Unsuccess, error: ${error}`);
       console.error(error);
     }
   };
@@ -69,18 +82,23 @@ const UploadPhotos = () => {
       >
         <h3
           style={{
-            color: "#DC143C",
-            position: "fixed",
-            fontFamily: "Brush Script MT",
+            color: "#000",
+            position: "absolute",
+            fontFamily: "'Alex Brush', cursive",
+            fontWeight: "600",
             textSizeAdjust: "80%",
-            fontSize: "2.5vh",
-            top: "3%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
+            fontSize: "3.5vh",
+            top: "10px",
+            left: "0",
+            right: "0",
+            margin: "0 auto",
           }}
         >
           Save The Date
-          <br /> Anh Minh & Mẫn Thy <br /> 21-01-2024
+          <br />
+          Anh Minh & Mẫn Thy
+          <br />
+          21-01-2024
         </h3>
         <div>
           <form
@@ -88,14 +106,24 @@ const UploadPhotos = () => {
             onSubmit={handleSubmit}
             style={{
               position: "fixed",
-              top: "33%",
+              top: "47%",
               left: "50%",
               transform: "translate(-50%,-50%)",
-              display: showed ? "none" : "",
+              display: showed ? "none" : "flex",
+              flexDirection: "column",
+              gap: "10px",
             }}
           >
-            <label htmlFor="fileInput" id="fileInputLabel">
-              Choose photos max 5(Chọn hình nha, tối đa 5)
+            <label
+              htmlFor="fileInput"
+              id="fileInputLabel"
+              style={{
+                fontSize: "max(1vw, 16px)",
+              }}
+            >
+              Please note: You can only upload up to 5 pictures.
+              <br />
+              (Xin lưu ý: Bạn chỉ có thể tải lên tối đa 5 tấm hình.)
             </label>
             <div className="custom-file-input">
               <input
@@ -106,11 +134,14 @@ const UploadPhotos = () => {
                 multiple
                 onChange={handleFileInputChange}
               />
-              <h4>
-                {" "}
-                Friend's category: <br /> (Chọn người quen)
+              <h4
+                style={{
+                  fontSize: "max(1vw, 16px)",
+                }}
+              >
+                Friend's category: (Chọn người quen)
               </h4>
-              <select name="category" id="category">
+              <select name="category" id="category" className="select-dropdown">
                 <option value="groom">Groom (Bạn Nhà Chú Rể)</option>
                 <option value="bride">Bride (Bạn Nhà Cô Dâu)</option>
                 <option value="general">General (Bạn Chung)</option>
@@ -125,15 +156,14 @@ const UploadPhotos = () => {
               type="submit"
               id="myButton"
               style={{
-                marginTop: "20px",
-                backgroundColor: "#4caf50",
+                backgroundColor: "rgb(195 63 48)",
                 color: "#fff",
                 border: "none",
                 padding: "10px 15px",
                 borderRadius: "3px",
                 transition: "background-color 0.3s",
               }}
-              onClick={() => setUploadStatus("Uploading...(Đang tải hình...)")}
+              onClick={() => setUploadStatus("Uploading (Đang tải hình)...")}
             >
               Upload
             </button>
@@ -145,8 +175,9 @@ const UploadPhotos = () => {
           class="button-85"
           style={{
             position: "fixed",
-            top: "70%",
+            top: "77%",
             left: "50%",
+            fontSize: "max(1.2vw, 16px)",
             transform: "translate(-50%,-50%)",
           }}
           onClick={() => setShowed(!showed)}
@@ -157,8 +188,9 @@ const UploadPhotos = () => {
           class="button-85"
           style={{
             position: "fixed",
-            top: "80%",
+            top: "85%",
             left: "50%",
+            fontSize: "max(1.2vw, 16px)",
             transform: "translate(-50%,-50%)",
           }}
           onClick={() => {
